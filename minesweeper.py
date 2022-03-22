@@ -13,7 +13,7 @@ global scr_height
 scr_width = user32.GetSystemMetrics(0)
 scr_height = user32.GetSystemMetrics(1)
 window = pygame.display.set_mode((scr_width,scr_height),FULLSCREEN)
-pygame.display.set_caption("CHERRY")
+pygame.display.set_caption("PINE")
 pygame.font.init()
 from pygame.locals import *
 pygame.init()
@@ -96,7 +96,7 @@ class Board:
 
         #bombs
 
-        self.bombno = 25
+        self.bombno = 50
         for i in range(self.bombno):
             x = random.randint(0, self.width-1)
             y = random.randint(0, self.height-1)
@@ -249,8 +249,7 @@ class Mouse:
                                 B.Resetnodes()
                     
                     B.WinCheck()
-
-    
+  
     def RClickDOWN(self):
         #flag
         x, y = Coordfinder(self.coord)
@@ -284,21 +283,21 @@ def Coordfinder(coord):
     else:
         return False
 
+if __name__ == '__main__':
+    B = Board()
+    M = Mouse()
 
-B = Board()
-M = Mouse()
+    B.Setup()
+    while B.RUN:
+        pygame.time.delay(1)
+        window.fill((241,243,240))
+        #input
+        if B.lose or B.win:
+            M.RetryInput()
+        else:
+            M.Input()
 
-B.Setup()
-while B.RUN:
-    pygame.time.delay(1)
-    window.fill((241,243,240))
-    #input
-    if B.lose or B.win:
-        M.RetryInput()
-    else:
-        M.Input()
-
-    #show
-    B.Show()
-    
-    pygame.display.update()
+        #show
+        B.Show()
+        
+        pygame.display.update()
